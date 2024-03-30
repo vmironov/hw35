@@ -1,40 +1,41 @@
-# hw35
+# Домашняя работа №35
 
 Теоретическая часть описана на вики https://github.com/vmironov/hw35/wiki/%D0%A2%D0%B5%D0%BE%D1%80%D0%B5%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F-%D1%87%D0%B0%D1%81%D1%82%D1%8C
 
-
 В практической части реализован второй вариант:
-1.Взаимодействие между микросервисами биллинговой подсистемы осуществляется через RestAPI
-2.Взаимодействие с сервисом нотификаций осуществляется посредством очереди в Kafka.
+1. Взаимодействие между микросервисами биллинговой подсистемы осуществляется через RestAPI
+2. Взаимодействие с сервисом нотификаций осуществляется посредством очереди в Kafka.
 
 
-Описание системы:
+## Описание системы:
+
 1. Биллинговая подсистема состоит из: 
-1.1. accountService - сервис управления лицевыми счетами
-1.2. chargeService - сервис для создания начислений
-1.3. paymentService - сервис для приёма платежей
-1.4. orderingService - сервис обработки заказа
-
+  - accountService - сервис управления лицевыми счетами
+  - chargeService - сервис для создания начислений
+  - paymentService - сервис для приёма платежей
+  - orderingService - сервис обработки заказа
 2. Сервис доставки нотификаций состоит из:
-2.1. notifyService - сервис доставки сообщений (сохранения их в БД)
-2.2. notifyConsumerService - сервис получения сообщений из топика Kafka
+  - notifyService - сервис доставки сообщений (сохранения их в БД)
+  - notifyConsumerService - сервис получения сообщений из топика Kafka
 
 
 
-Инструкция по установке:
+## Инструкция по установке:
 
 1. Установить основную систему
-$ cd helm
-$ helm install hw35 ./
+- $ cd helm
+- $ helm install hw35 ./
 
 2. Установить в этот же неймспейс кафку
-$ helm repo add bitnami https://charts.bitnami.com/bitnami
-$ helm install kfk bitnami/kafka --version 28.0.0 --namespace hw35-in-helm -f ./values-kafka.yaml 
+- $ helm repo add bitnami https://charts.bitnami.com/bitnami
+- $ helm install kfk bitnami/kafka --version 28.0.0 --namespace hw35-in-helm -f ./values-kafka.yaml 
 
-Необходимо дождаться пока не запустится кластер kafka. Он запускается не сразу.
-После того как будет запущен kafka подождать пока автоматически восстановится notify-consumer-deployment
+>[!IMPORTANT]
+>Необходимо дождаться пока не запустится кластер kafka. Он запускается не сразу.
+>
+>После того как будет запущен kafka подождать пока автоматически восстановится notify-consumer-deployment
 
 3. Запустить тесты на newman
-$ cd ../
-$ newman run HW35.postman_collection.json
+- $ cd ../
+- $ newman run HW35.postman_collection.json
 
