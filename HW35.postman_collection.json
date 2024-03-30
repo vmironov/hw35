@@ -1,0 +1,408 @@
+{
+	"info": {
+		"_postman_id": "3ffca78c-2130-4629-86ed-77bbe1da16eb",
+		"name": "HW35",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28838428"
+	},
+	"item": [
+		{
+			"name": "1. Создаем пользователя (лицевой счёт)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log(pm.response.json())"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "login",
+							"value": "user1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://{{host}}/accountService/account",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"accountService",
+						"account"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2. Проверяем баланс (равен 0)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log(pm.response.json())"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "accountId",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://{{host}}/accountService/account",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"accountService",
+						"account"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3. Создаем Платёж на 500руб",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log(pm.response.json())"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "accountId",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "summ",
+							"value": "500",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://{{host}}/paymentService/payment",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"paymentService",
+						"payment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4. Создаём заказ на сумму 300руб.",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log(pm.response.json());",
+							"setTimeout(function(){}, 2000);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "accountId",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "summ",
+							"value": "300",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://{{host}}/orderingService/order",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"orderingService",
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "5. Проверяем отправку email об ошибке при оформлении заказа",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log(pm.response.json())"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "accountId",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://{{host}}/notifyService/notify",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"notifyService",
+						"notify"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "6. Проверяем баланс (равен 200)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log(pm.response.json())"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "accountId",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://{{host}}/accountService/account",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"accountService",
+						"account"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "7. Создаём заказ на сумму 300руб.",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log(pm.response.json());",
+							"setTimeout(function(){}, 2000);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "accountId",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "summ",
+							"value": "300",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://{{host}}/orderingService/order",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"orderingService",
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "8. Проверяем отправку email об ошибке при оформлении заказа",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log(pm.response.json())"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "accountId",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://{{host}}/notifyService/notify",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"notifyService",
+						"notify"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "6. Проверяем баланс (не изменился, равен 200)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log(pm.response.json())"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "accountId",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://{{host}}/accountService/account",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"accountService",
+						"account"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "arch.homework"
+		}
+	]
+}
